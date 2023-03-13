@@ -1,3 +1,3 @@
-from django_view_utils import ViewRegistry
+from django_view_utils.apps import ViewRegistry
 
 urlpatterns = ViewRegistry.urlpatterns()

@@ -45,6 +45,15 @@ dependencies = [
 cov = "pytest --cov-report=term-missing --cov-config=pyproject.toml --cov=django_view_utils --cov=tests {args}"
 no-cov = "cov --no-cov {args}"
 
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE="tests.settings"
+#addopts = "--reuse-db --cov"
+addopts = "--reuse-db"
+norecursedirs = "build dist docs .eggs/* *.egg-info htmlcov django_view_utils .git .nox"
+python_files = "test*.py"
+testpaths = "tests"
+pythonpath = ". src"
+
 [[tool.hatch.envs.test.matrix]]
 python = ["37", "38", "39", "310", "311"]
 

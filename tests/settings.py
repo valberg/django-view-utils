@@ -13,10 +13,16 @@ INSTALLED_APPS = [
     # Third Party
     "django_view_utils",
     # Contrib
+    "django.contrib.auth",
+    "django.contrib.sessions",
+    "django.contrib.contenttypes",
     "django.contrib.staticfiles",
 ]
 
-MIDDLEWARE: list[str] = []
+MIDDLEWARE: list[str] = [
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+]
 
 ROOT_URLCONF = "tests.urls"
 
@@ -31,10 +37,6 @@ TEMPLATES = [
 ]
 
 USE_TZ = True
-
-# 2. Django Contrib Settings
-
-# django.contrib.staticfiles
 
 STATICFILES_DIRS = [
     BASE_DIR / "static",
