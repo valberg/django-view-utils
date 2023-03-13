@@ -7,7 +7,12 @@ ALLOWED_HOSTS: list[str] = []
 
 BASE_DIR = Path(__file__).resolve().parent
 
-DATABASES: dict[str, dict[str, Any]] = {}
+DATABASES: dict[str, dict[str, Any]] = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
+    },
+}
 
 INSTALLED_APPS = [
     # Third Party
