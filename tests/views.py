@@ -37,3 +37,21 @@ def staff_required_view(request: HttpRequest) -> HttpResponse:
 )
 def permissions_required_view(request: HttpRequest) -> HttpResponse:
     return HttpResponse("permissions_required")
+
+
+@view(
+    paths="foo/<int:foo_id>/",
+    name="foo_id",
+)
+def foo_id_view(request: HttpRequest, foo_id: int) -> HttpResponse:
+    return HttpResponse(f"{foo_id}")
+
+
+@view(
+    paths=["bar/", "bar/<int:bar_id>/"],
+    name="bar",
+)
+def bar_view(request: HttpRequest, bar_id: int = None) -> HttpResponse:
+    if bar_id:
+        return HttpResponse(f"{bar_id}")
+    return HttpResponse("bar")

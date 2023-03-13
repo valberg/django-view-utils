@@ -52,3 +52,12 @@ def test_permissions_required(client, user):
     client.force_login(user)
     response = client.get(reverse("permissions_required"))
     assert response.status_code == 200
+
+
+def test_urlconf_building_with_url_params():
+    assert reverse("foo_id", kwargs={"foo_id": 1}) == "/foo/1/"
+
+
+def test_urlconf_building_with_url_params_and_optional_url_params():
+    assert reverse("bar") == "/bar/"
+    assert reverse("bar", kwargs={"bar_id": 1}) == "/bar/1/"
