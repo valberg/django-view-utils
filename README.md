@@ -5,6 +5,40 @@
 
 -----
 
+**django-view-utils** aims to be a collection of useful utilities for Django views. Mainly function based views.
+
+## Features
+
+### `@view` decorator
+
+The `@view` decorator is a simple way to create a view function and register it with a URL.
+
+```python
+from django_view_utils.utils import view
+
+@view(paths="/hello-world/", name="hello-world")
+def my_view(request):
+    ...
+```
+
+Conveniently it also supports `login_required`, `staff_required` and `permission_required`.
+
+```python
+
+@view(paths="/hello-world/", name="hello-world", login_required=True)
+def my_view(request):
+    ...
+
+@view(paths="/hello-world/", name="hello-world", staff_required=True)
+def my_view(request):
+    ...
+
+@view(paths="/hello-world/", name="hello-world", permissions=["myapp.can_do_something"])
+def my_view(request):
+    ...
+```
+
+
 **Table of Contents**
 
 - [Installation](#installation)
@@ -21,7 +55,9 @@ pip install django-view-utils
 ```console
 git clone
 cd django-view-utils
-pip install -e .[dev]
+pip install hatch
+hatch run tests:cov
+hatch run tests:typecheck
 ```
 
 ## License
