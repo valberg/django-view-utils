@@ -71,9 +71,10 @@ def view(
 
 def include_view_urls(
     *,
-    modules: list[str],
+    modules: list[str] | None = None,
 ) -> tuple[Sequence[URLResolver | URLPattern], str | None, str | None]:
-    for module in modules:
-        import_module(f"{module}")
+    if modules:
+        for module in modules:
+            import_module(f"{module}")
 
     return include("django_view_utils.urls")
