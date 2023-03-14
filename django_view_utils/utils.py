@@ -1,11 +1,25 @@
+import sys
+from collections.abc import Callable
+from collections.abc import Sequence
 from functools import wraps
 from importlib import import_module
+from typing import Any
 
 from django.contrib.auth.views import redirect_to_login
+from django.http import HttpRequest
+from django.http import HttpResponse
 from django.http import HttpResponseForbidden
 from django.urls import include
+from django.urls import URLPattern
+from django.urls import URLResolver
 
 from django_view_utils.apps import ViewRegistry
+
+# If python version is <= 3.10, use typing_extensions
+if sys.version_info[1] > 10:
+    from typing import TypeVarTuple
+else:
+    from typing_extensions import TypeVarTuple
 
 
 def view(
@@ -14,7 +28,10 @@ def view(
     login_required: bool = False,
     staff_required: bool = False,
     permissions: str | list[str] | None = None,
-):
+) -> Callable[
+    [Callable[[HttpRequest], HttpResponse]],
+    Callable[[HttpRequest], HttpResponse],
+]:
     """
     Decorator for Django views.
 
@@ -25,9 +42,15 @@ def view(
     :param permissions: List of permissions required for the view.
     """
 
-    def decorator(view_func):
+    def decorator(
+        view_func: Callable[[HttpRequest], HttpResponse],
+    ) -> Callable[[HttpRequest], HttpResponse]:
         @wraps(view_func)
-        def wrapper(request, *args, **kwargs):
+        def wrapper(
+            request: HttpRequest,
+            *args: TypeVarTuple,
+            **kwargs: Any,
+        ) -> HttpResponse:
             if login_required and not request.user.is_authenticated:
                 return redirect_to_login(request.get_full_path())
 
@@ -46,7 +69,10 @@ def view(
     return decorator
 
 
-def include_view_urls(*, modules: list[str]):
+def include_view_urls(
+    *,
+    modules: list[str],
+) -> tuple[Sequence[URLResolver | URLPattern], str | None, str | None]:
     for module in modules:
         import_module(f"{module}")
 

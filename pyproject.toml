@@ -35,10 +35,12 @@ path = "django_view_utils/__about__.py"
 
 [tool.hatch.envs.default]
 dependencies = [
-  "coverage[toml]",
+  "coverage[toml]==7.2.1",
   "pytest==7.2.2",
   "pytest-cov",
-  "pytest-django==4.5.2"
+  "pytest-django==4.5.2",
+  "mypy==1.1.1",
+  "django-stubs==1.15.0",
 ]
 
 [[tool.hatch.envs.default.matrix]]
@@ -49,10 +51,14 @@ django = ["3.2", "4.0", "4.1", "4.2b1"]
 matrix.django.dependencies = [
     { value = "django~={matrix:django}" },
 ]
+matrix.python.dependencies = [
+    { value = "typing_extensions==4.5.0", if = ["3.10"]},
+]
 
 [tool.hatch.envs.default.scripts]
 cov = "pytest --cov-report=term-missing --cov-config=pyproject.toml --cov=django_view_utils --cov=tests {args}"
 no-cov = "cov --no-cov {args}"
+typecheck = "mypy --config-file=pyproject.toml ."
 
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE="tests.settings"
@@ -60,7 +66,7 @@ addopts = "--reuse-db"
 norecursedirs = "build dist docs .eggs/* *.egg-info htmlcov django_view_utils .git"
 python_files = "test*.py"
 testpaths = "tests"
-pythonpath = ". src tests"
+pythonpath = ". tests"
 
 [tool.coverage.run]
 branch = true
@@ -76,3 +82,15 @@ exclude_lines = [
   "if __name__ == .__main__.:",
   "if TYPE_CHECKING:",
 ]
+
+[tool.mypy]
+mypy_path = "django_view_utils/"
+exclude = "venv/"
+namespace_packages = false
+show_error_codes = true
+strict = true
+warn_unreachable = true
+
+[[tool.mypy.overrides]]
+module = "tests.*"
+allow_untyped_defs = true

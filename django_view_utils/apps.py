@@ -1,16 +1,23 @@
+import sys
 from collections.abc import Callable
 from dataclasses import dataclass
 from typing import TypeAlias
 
+# If python version is <= 3.10, use typing_extensions
+if sys.version_info[1] > 10:
+    from typing import TypeVarTuple
+else:
+    from typing_extensions import TypeVarTuple
+
 from django.apps import AppConfig
 from django.http import HttpRequest
 from django.http import HttpResponse
-from django.urls import path
+from django.urls import path, URLPattern
 
 from .conf import conf
 
 
-ViewType: TypeAlias = Callable[[HttpRequest, ...], HttpResponse]
+ViewType: TypeAlias = Callable[[HttpRequest, TypeVarTuple], HttpResponse]
 
 
 @dataclass(kw_only=True)
@@ -23,11 +30,17 @@ class ViewRegistry:
     views: dict[str, View] = {}
 
     @classmethod
-    def register(cls, *, name: str, paths: str, view_func: ViewType):
+    def register(
+        cls,
+        *,
+        name: str,
+        paths: str | list[str],
+        view_func: ViewType,
+    ) -> None:
         cls.views[name] = View(paths=paths, view=view_func)
 
     @classmethod
-    def urlpatterns(cls):
+    def urlpatterns(cls) -> list[URLPattern]:
         urlpatterns = []
         for name, _view in cls.views.items():
             if isinstance(_view.paths, str):
@@ -47,7 +60,7 @@ class ViewUtilsAppConf(AppConfig):
     name = "django_view_utils"
     verbose_name = "Django View Utils"
 
-    def ready(self):
+    def ready(self) -> None:
         if conf.DJANGO_VIEW_UTILS_AUTODISCOVER_VIEWS:
             from django.utils.module_loading import autodiscover_modules
 

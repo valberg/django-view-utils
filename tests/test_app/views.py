@@ -51,7 +51,7 @@ def foo_id_view(request: HttpRequest, foo_id: int) -> HttpResponse:
     paths=["bar/", "bar/<int:bar_id>/"],
     name="bar",
 )
-def bar_view(request: HttpRequest, bar_id: int = None) -> HttpResponse:
+def bar_view(request: HttpRequest, bar_id: int | None = None) -> HttpResponse:
     if bar_id:
         return HttpResponse(f"{bar_id}")
     return HttpResponse("bar")
