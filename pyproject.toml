@@ -6,7 +6,7 @@ build-backend = "hatchling.build"
 name = "django-view-utils"
 description = ''
 readme = "README.md"
-requires-python = ">=3.7"
+requires-python = ">=3.10"
 license = "MIT"
 keywords = []
 authors = [
@@ -15,53 +15,59 @@ authors = [
 classifiers = [
   "Development Status :: 4 - Beta",
   "Programming Language :: Python",
-  "Programming Language :: Python :: 3.7",
-  "Programming Language :: Python :: 3.8",
-  "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: Implementation :: CPython",
   "Programming Language :: Python :: Implementation :: PyPy",
 ]
 dependencies = [
-  "django-zen-queries>=2.1"
+  "Django>=3.2",
 ]
 dynamic = ["version"]
 
 [project.urls]
-Documentation = "https://github.com/unknown/django-view-utils#readme"
-Issues = "https://github.com/unknown/django-view-utils/issues"
-Source = "https://github.com/unknown/django-view-utils"
+Documentation = "https://github.com/valberg/django-view-utils#readme"
+Issues = "https://github.com/valberg/django-view-utils/issues"
+Source = "https://github.com/valberg/django-view-utils"
 
 [tool.hatch.version]
 path = "django_view_utils/__about__.py"
 
 [tool.hatch.envs.default]
 dependencies = [
-  "pytest",
+  "coverage[toml]",
+  "pytest==7.2.2",
   "pytest-cov",
+  "pytest-django==4.5.2"
 ]
+
+[[tool.hatch.envs.default.matrix]]
+python = ["3.10", "3.11"]
+django = ["3.2", "4.0", "4.1", "4.2b1"]
+
+[tool.hatch.envs.default.overrides]
+matrix.django.dependencies = [
+    { value = "django~={matrix:django}" },
+]
+
 [tool.hatch.envs.default.scripts]
 cov = "pytest --cov-report=term-missing --cov-config=pyproject.toml --cov=django_view_utils --cov=tests {args}"
 no-cov = "cov --no-cov {args}"
 
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE="tests.settings"
-#addopts = "--reuse-db --cov"
 addopts = "--reuse-db"
-norecursedirs = "build dist docs .eggs/* *.egg-info htmlcov django_view_utils .git .nox"
+norecursedirs = "build dist docs .eggs/* *.egg-info htmlcov django_view_utils .git"
 python_files = "test*.py"
 testpaths = "tests"
 pythonpath = ". src"
-
-[[tool.hatch.envs.test.matrix]]
-python = ["37", "38", "39", "310", "311"]
 
 [tool.coverage.run]
 branch = true
 parallel = true
 omit = [
   "django_view_utils/__about__.py",
+  "tests/manage.py",
 ]
 
 [tool.coverage.report]

@@ -16,6 +16,14 @@
 pip install django-view-utils
 ```
 
+## Development
+
+```console
+git clone
+cd django-view-utils
+pip install -e .[dev]
+```
+
 ## License
 
 `django-view-utils` is distributed under the terms of the [MIT](https://spdx.org/licenses/MIT.html) license.
