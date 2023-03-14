@@ -22,7 +22,6 @@ class ViewRegistry:
 
     @classmethod
     def register(cls, *, name: str, paths: str, view_func: ViewType):
-        print(f"Registering view {name}...")
         cls.views[name] = View(paths=paths, view=view_func)
 
     @classmethod

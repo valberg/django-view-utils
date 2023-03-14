@@ -25,12 +25,9 @@ def view(
     :param permissions: List of permissions required for the view.
     """
 
-    print(f"Decorated {name}...")
-
     def decorator(view_func):
         @wraps(view_func)
         def wrapper(request, *args, **kwargs):
-            print(f"Calling {name}...")
             if login_required and not request.user.is_authenticated:
                 return redirect_to_login(request.get_full_path())
 
@@ -51,7 +48,6 @@ def view(
 
 def include_view_urls(*modules: str):
     for module in modules:
-        print(f"Importing {module}...")
         import_module(f"{module}")
 
     return include("django_view_utils.urls")
