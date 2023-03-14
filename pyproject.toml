@@ -60,7 +60,7 @@ addopts = "--reuse-db"
 norecursedirs = "build dist docs .eggs/* *.egg-info htmlcov django_view_utils .git"
 python_files = "test*.py"
 testpaths = "tests"
-pythonpath = ". src"
+pythonpath = ". src tests"
 
 [tool.coverage.run]
 branch = true

@@ -78,3 +78,10 @@ def test_urlconf_building_with_url_params_and_optional_url_params(client):
     assert url == "/bar/1/"
     response = client.get(url)
     assert response.status_code == 200
+
+
+def test_include_view_urls_modules(client):
+    url = reverse("baz")
+    assert url == "/baz/"
+    response = client.get(url)
+    assert response.status_code == 200

@@ -46,7 +46,7 @@ def view(
     return decorator
 
 
-def include_view_urls(*modules: str):
+def include_view_urls(*, modules: list[str]):
     for module in modules:
         import_module(f"{module}")
 

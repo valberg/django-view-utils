@@ -22,6 +22,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.contenttypes",
     "django.contrib.staticfiles",
+    # Local
+    "test_app",
 ]
 
 MIDDLEWARE: list[str] = [

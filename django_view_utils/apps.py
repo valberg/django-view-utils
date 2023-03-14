@@ -7,6 +7,8 @@ from django.http import HttpRequest
 from django.http import HttpResponse
 from django.urls import path
 
+from .conf import conf
+
 
 ViewType: TypeAlias = Callable[[HttpRequest, ...], HttpResponse]
 
@@ -44,3 +46,9 @@ class ViewRegistry:
 class ViewUtilsAppConf(AppConfig):
     name = "django_view_utils"
     verbose_name = "Django View Utils"
+
+    def ready(self):
+        if conf.DJANGO_VIEW_UTILS_AUTODISCOVER_VIEWS:
+            from django.utils.module_loading import autodiscover_modules
+
+            autodiscover_modules("views")
