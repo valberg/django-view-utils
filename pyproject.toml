@@ -62,7 +62,7 @@ matrix.python.dependencies = [
     { value = "typing_extensions==4.5.0", if = ["3.10"]},
 ]
 
-[tool.hatch.envs.tests.scripts]
+[tool.hatch.envs.default.scripts]
 cov = "pytest --cov-report=term-missing --cov-config=pyproject.toml --cov=django_view_utils --cov=tests --cov=append {args}"
 no-cov = "cov --no-cov {args}"
 typecheck = "mypy --config-file=pyproject.toml ."
