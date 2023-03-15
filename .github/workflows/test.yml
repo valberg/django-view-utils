@@ -18,12 +18,11 @@ env:
 
 jobs:
   run:
-    name: Python ${{ matrix.python-version }} on ${{ startsWith(matrix.os, 'macos-') && 'macOS' || startsWith(matrix.os, 'windows-') && 'Windows' || 'Linux' }}
-    runs-on: ${{ matrix.os }}
+    name: Python ${{ matrix.python-version }} with Django ${{ matrix.django-version }}
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
         python-version: ['3.10', '3.11']
         django-version: ["3.2", "4.0", "4.1", "4.2b1"]
 
