@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 
-from django_view_utils.utils import view
+from django_view_utils import view
 
 
 @view(paths="baz/", name="baz")

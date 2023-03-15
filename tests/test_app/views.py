@@ -1,7 +1,7 @@
 from django.http import HttpRequest
 from django.http import HttpResponse
 
-from django_view_utils.utils import view
+from django_view_utils import view
 
 
 @view(

@@ -16,17 +16,35 @@
 The `@view` decorator is a simple way to create a view function and register it with a URL.
 
 ```python
-from django_view_utils.utils import view
+
+# <app>/views.url
+
+from django_view_utils import view
+
 
 @view(paths="/hello-world/", name="hello-world")
 def my_view(request):
     ...
+
+
+# <app>/urls.py
+
+from django.urls import path
+from django_view_utils import include_view_urls
+
+urlpatterns = [
+    path("", include_view_urls()),
+]
 ```
 
+By default, django-view-utils will look for a `views.py` file in your app.
+
+This can be disabled by setting `DJANGO_VIEW_UTILS_AUTO_DISCOVER` to `False`, then registering view modules is up to you by supplying the `modules` keyword argument to `include_view_urls`.
+
+#### `@view` decorator options
 Conveniently it also supports `login_required`, `staff_required` and `permission_required`.
 
 ```python
-
 @view(paths="/hello-world/", name="hello-world", login_required=True)
 def my_view(request):
     ...
@@ -39,6 +57,8 @@ def my_view(request):
 def my_view(request):
     ...
 ```
+
+#### Inspiration
 
 This decorator is very much inspired by the idea of "locality of behaviour" by Carson Gross (creator of HTMX): https://htmx.org/essays/locality-of-behaviour/.
 
