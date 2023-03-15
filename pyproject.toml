@@ -67,6 +67,18 @@ cov = "pytest --cov-report=term-missing --cov-config=pyproject.toml --cov=django
 no-cov = "cov --no-cov {args}"
 typecheck = "mypy --config-file=pyproject.toml ."
 
+
+[tool.hatch.envs.docs]
+dependencies = [
+    "sphinx==6.1.3",
+    "sphinx-autobuild==2021.3.14",
+    "furo==2022.12.7",
+]
+
+[tool.hatch.envs.docs.scripts]
+build = "sphinx-build -b html docs docs/_build/html"
+serve = "sphinx-autobuild -b html docs docs/_build/html"
+
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE="tests.settings"
 addopts = "--reuse-db"
