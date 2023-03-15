@@ -40,6 +40,10 @@ def my_view(request):
     ...
 ```
 
+This decorator is very much inspired by the idea of "locality of behaviour" by Carson Gross (creator of HTMX): https://htmx.org/essays/locality-of-behaviour/.
+
+It also bears resemblance to the `@app.route` decorator in Flask, the `@app.<HTTP method>` decorator in FastAPI and probably many other Python web frameworks.
+
 
 **Table of Contents**
 
