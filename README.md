@@ -2,6 +2,7 @@
 
 [![PyPI - Version](https://img.shields.io/pypi/v/django-view-utils.svg)](https://pypi.org/project/django-view-utils)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/django-view-utils.svg)](https://pypi.org/project/django-view-utils)
+[![Documentation Status](https://readthedocs.org/projects/django-view-utils/badge/?version=latest)](https://django-view-utils.readthedocs.io/en/latest/?badge=latest)
 
 -----
 
