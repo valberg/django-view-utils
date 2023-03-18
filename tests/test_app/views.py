@@ -1,12 +1,14 @@
 from django.http import HttpRequest
 from django.http import HttpResponse
 
+from django_view_utils import namespaced_decorator_factory
 from django_view_utils import view
 
 
 @view(
     paths="foo",
     name="foo",
+    namespace="foo",
 )
 def foo_view(request: HttpRequest) -> HttpResponse:
     return HttpResponse("foo")
@@ -55,3 +57,16 @@ def bar_view(request: HttpRequest, bar_id: int | None = None) -> HttpResponse:
     if bar_id:
         return HttpResponse(f"{bar_id}")
     return HttpResponse("bar")
+
+
+namespaced_view = namespaced_decorator_factory(
+    namespace="namespaced",
+)
+
+
+@namespaced_view(
+    paths="namespaced/baz/",
+    name="baz",
+)
+def baz_view(request: HttpRequest) -> HttpResponse:
+    return HttpResponse("baz")

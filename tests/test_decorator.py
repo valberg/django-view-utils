@@ -12,7 +12,7 @@ def user(django_user_model):
 
 
 def test_urlconf_building(client):
-    url = reverse("foo")
+    url = reverse("foo:foo")
     assert url == "/foo"
     response = client.get(url)
     assert response.status_code == 200
@@ -83,5 +83,12 @@ def test_urlconf_building_with_url_params_and_optional_url_params(client):
 def test_include_view_urls_modules(client):
     url = reverse("baz")
     assert url == "/baz/"
+    response = client.get(url)
+    assert response.status_code == 200
+
+
+def test_namespaced_decorator(client):
+    url = reverse("namespaced:baz")
+    assert url == "/namespaced/baz/"
     response = client.get(url)
     assert response.status_code == 200
