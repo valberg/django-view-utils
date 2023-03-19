@@ -8,7 +8,7 @@
 project = "django-view-utils"
 copyright = "2023, Víðir Valberg Guðmundsson"
 author = "Víðir Valberg Guðmundsson"
-release = "0.0.3"
+release = "0.0.4"
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
