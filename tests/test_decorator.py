@@ -87,6 +87,18 @@ def test_include_view_urls_modules(client):
     assert response.status_code == 200
 
 
+def test_two_views_same_name(client):
+    url = reverse("same_name")
+    assert url == "/no_arguments/"
+    response = client.get(url)
+    assert response.status_code == 200
+
+    url = reverse("same_name", kwargs={"foo_id": 1})
+    assert url == "/arguments/1/"
+    response = client.get(url)
+    assert response.status_code == 200
+
+
 def test_namespaced_decorator(client):
     url = reverse("namespaced:baz")
     assert url == "/namespaced/baz/"

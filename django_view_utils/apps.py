@@ -1,4 +1,5 @@
 import sys
+from collections import defaultdict
 from collections.abc import Callable
 from dataclasses import dataclass
 from typing import TypeAlias
@@ -27,7 +28,7 @@ class View:
 
 
 class ViewRegistry:
-    views: dict[str, dict[str, View]] = {}
+    views: dict[str, dict[str, list[View]]] = {}
 
     @classmethod
     def register(
@@ -38,23 +39,26 @@ class ViewRegistry:
         view_func: ViewType,
         namespace: str | None = None,
     ) -> None:
-        cls.views.setdefault(namespace, {})[name] = View(paths=paths, view=view_func)
+        cls.views.setdefault(namespace, defaultdict(list))[name].append(
+            View(paths=paths, view=view_func),
+        )
 
     @classmethod
     def urlpatterns(cls) -> list[URLPattern]:
         urlpatterns = []
         for namespace, views in cls.views.items():
             _patterns = []
-            for name, _view in views.items():
-                if isinstance(_view.paths, str):
-                    _patterns.append(
-                        path(_view.paths, _view.view, name=name),
-                    )
-                else:
-                    for _path in _view.paths:
+            for name, _views in views.items():
+                for _view in _views:
+                    if isinstance(_view.paths, str):
                         _patterns.append(
-                            path(_path, _view.view, name=name),
+                            path(_view.paths, _view.view, name=name),
                         )
+                    else:
+                        for _path in _view.paths:
+                            _patterns.append(
+                                path(_path, _view.view, name=name),
+                            )
             urlpatterns.append(
                 path("", include((_patterns, namespace), namespace=namespace)),
             )

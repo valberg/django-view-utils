@@ -50,6 +50,22 @@ def foo_id_view(request: HttpRequest, foo_id: int) -> HttpResponse:
 
 
 @view(
+    paths="no_arguments/",
+    name="same_name",
+)
+def no_arguments_view(request: HttpRequest) -> HttpResponse:
+    return HttpResponse("no_arguments")
+
+
+@view(
+    paths="arguments/<int:foo_id>/",
+    name="same_name",
+)
+def arguments_view(request: HttpRequest, foo_id: int) -> HttpResponse:
+    return HttpResponse(f"{foo_id}")
+
+
+@view(
     paths=["bar/", "bar/<int:bar_id>/"],
     name="bar",
 )
