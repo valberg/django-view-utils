@@ -4,6 +4,7 @@
 [![Documentation](https://readthedocs.org/projects/django-view-utils/badge/?version=latest)](https://django-view-utils.readthedocs.io/en/latest/?badge=latest)
 [![PyPI - Version](https://img.shields.io/pypi/v/django-view-utils.svg)](https://pypi.org/project/django-view-utils)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/django-view-utils.svg)](https://pypi.org/project/django-view-utils)
+[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/valberg/django-view-utils/main.svg)](https://results.pre-commit.ci/latest/github/valberg/django-view-utils/main)
 
 -----
 
