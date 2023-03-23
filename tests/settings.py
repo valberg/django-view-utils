@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 from pathlib import Path
 from typing import Any
 
@@ -7,10 +8,15 @@ ALLOWED_HOSTS: list[str] = []
 
 BASE_DIR = Path(__file__).resolve().parent
 
+DEBUG_ENV = os.environ.get("DEBUG")
+DEBUG = DEBUG_ENV == "True"
+
+DATABASE_NAME = ":memory:" if not DEBUG else BASE_DIR / "db.sqlite3"
+
 DATABASES: dict[str, dict[str, Any]] = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "NAME": DATABASE_NAME,
     },
 }
 
@@ -38,6 +44,7 @@ SECRET_KEY = "NOTASECRET"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "APP_DIRS": True,
         "DIRS": [BASE_DIR / "templates" / "django"],
         "OPTIONS": {"context_processors": []},
     },

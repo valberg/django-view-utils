@@ -1,6 +1,6 @@
 from .decorators import namespaced_decorator_factory
 from .decorators import view
-from .utils import include_view_urls
+from .urls_utils import include_view_urls
 
 __all__ = [
     "view",

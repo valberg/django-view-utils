@@ -8,7 +8,7 @@
 
 -----
 
-**django-view-utils** aims to be a collection of useful utilities for Django views. Mainly function based views.
+**django-view-utils** aims to be a collection of (opinionated) useful utilities for Django views. Mainly function based views.
 
 ## Features
 
@@ -20,7 +20,7 @@ The `@view` decorator is a simple way to create a view function and register it 
 
 # <app>/views.url
 
-from django_view_utils import view
+from django_view_utils import view, include_view_urls
 
 
 @view(paths="/hello-world/", name="hello-world")
@@ -31,7 +31,6 @@ def my_view(request):
 # <app>/urls.py
 
 from django.urls import path
-from django_view_utils import include_view_urls
 
 urlpatterns = [
     path("", include_view_urls()),
