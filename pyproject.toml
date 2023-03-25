@@ -22,6 +22,7 @@ classifiers = [
 ]
 dependencies = [
   "Django>=3.2",
+  "django-view-decorator==0.0.1",
 ]
 dynamic = ["version"]
 
@@ -48,6 +49,7 @@ dependencies = [
   "pytest-django==4.5.2",
   "mypy==1.1.1",
   "django-stubs==1.15.0",
+  "django-view-decorator==0.0.1",
 ]
 
 [[tool.hatch.envs.tests.matrix]]

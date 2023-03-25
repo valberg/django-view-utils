@@ -23,6 +23,7 @@ DATABASES: dict[str, dict[str, Any]] = {
 INSTALLED_APPS = [
     # Third Party
     "django_view_utils",
+    "django_view_decorator",
     # Contrib
     "django.contrib.auth",
     "django.contrib.sessions",
