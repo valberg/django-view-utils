@@ -1,8 +1,8 @@
 from enum import Enum
 
 __all__ = [
-    "LevelEnum",
     "IconEnum",
+    "LevelEnum",
     "map_icon",
 ]
 
