@@ -5,7 +5,6 @@ from django_view_decorator import namespaced_decorator_factory
 from .models import Bar
 from django_view_utils.generic.list import render_list
 
-
 generic_view = namespaced_decorator_factory(namespace="generic")
 
 
